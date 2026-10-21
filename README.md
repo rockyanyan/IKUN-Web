@@ -1,7 +1,58 @@
-参考了“鸡乐盒”，实训的时候无聊搞的，玩的开心，
-![Uploading 页面.png…]()
-素材全部来自网络，请勿商用，而且这个网页我也没做完，ikun们拿去玩吧（ps：不欢迎黑子，只欢迎ikun）
+# IKUN-Web · 小黑子服务中心 2.0 🐔🏀
 
+> 参考了"鸡乐盒"，实训的时候无聊搞的，玩的开心。
+> v2.0 为 AI 重构版：修复了原版全部问题，并新增一批互动功能。
+>
+> 素材全部来自网络，请勿商用。不欢迎黑子，只欢迎 ikun。
 
-Referring to the "chicken box", I was bored during the training, and I had fun!
-The materials are all from the Internet.,Don't use it commercially.,And I haven't finished this page.,Ikun take it and play it (ps:Don't welcome sunspots.,Only ikun is welcome)
+## ✨ v2.0 相比原版的变化
+
+### 🛠 修复
+
+| 问题 | 原版 | v2.0 |
+| --- | --- | --- |
+| 资源路径 | `../img/`、`ZHANG.css` 与实际目录 `IMG/`、`zhang.css` 大小写不符，部署到 Linux（GitHub Pages）后图片/样式全部 404 | 统一为 `assets/` 小写目录 + 正确引用 |
+| HTML 结构 | `<a>` 嵌套 `<a>`、`alt="" "` 引号未闭合、`<div>` 未闭合 | 全部修正，语义化标签 |
+| 登录页 | `login.html` 引用了不存在的 `styles.css` | 移除多余的伪登录页（原逻辑仅是 `admin/admin` 前端判断） |
+| 音频 | 强制 `autoplay`，被所有现代浏览器拦截 | 正规播放器：播放/暂停/切歌/进度/音量，默认不自动播放 |
+| 死链 | 大量 `href="#"` 占位 | 全部改为站内功能 |
+| 适配 | `body{height:800px}` 硬编码，无任何响应式 | 移动端优先 + 桌面自适应 + 安全区适配 |
+
+### 🚀 新增
+
+- 🎵 **音乐播放器**：双曲目播放列表、碟片旋转动画、进度拖拽、自动连播
+- ⏱ **练习时长**：本地累计在线时长，向"两年半"目标推进（localStorage 持久化）
+- 🔍 **小黑子鉴定所**：5 题趣味问答 → 真爱 ikun / 合格 ikun / 路人 / 纯纯小黑子
+- 📜 **鸡语录生成器**：一键生成坤坤今日语录
+- 🖼 **梗图墙**：瀑布网格 + 点击灯箱大图
+- 🌙 **深色/浅色主题**：手动切换 + 本地记忆
+- ✨ **点击粒子特效**：点哪儿都蹦篮球和小鸡
+- 📱 **底部 Dock 导航**：移动端 App 式交互
+
+## 📂 目录结构
+
+```
+IKUN-Web
+├── index.html          # 单页应用入口
+├── css/style.css       # 全部样式（双主题）
+├── js/app.js           # 全部逻辑（零依赖原生 JS）
+└── assets/
+    ├── img/            # 梗图素材（继承原版）
+    └── media/          # 音频素材（继承原版，重命名为 ASCII 文件名）
+```
+
+## 🚀 运行 / 部署
+
+零依赖、无构建步骤：
+
+- **本地**：直接双击 `index.html`，或
+  ```bash
+  npx serve .
+  ```
+- **GitHub Pages**：仓库 Settings → Pages → 选 `main` 分支根目录即可。
+
+## 📄 许可与声明
+
+- 代码部分：随意学习、修改、开分支。
+- 图片 / 音频素材：均来自网络，仅供娱乐，**请勿商用**；如有侵权请联系仓库所有者删除。
+- 本站为粉丝娱乐性质的梗文化作品，与任何真实人物及商业主体无关。

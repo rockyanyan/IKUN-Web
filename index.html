@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="IKUN 小黑子服务中心 2.0 —— 唱、跳、RAP、篮球，全民制作人们大家好！">
+  <link rel="icon" href="assets/img/icon.png" type="image/png">
+  <link rel="stylesheet" href="css/style.css">
+  <title>IKUN 小黑子服务中心 · 2.0</title>
+</head>
+<body data-theme="dark">
+
+  <!-- ===== 顶栏 ===== -->
+  <header class="topbar">
+    <div class="topbar-brand">
+      <img src="assets/img/kunkun.png" alt="坤" class="brand-avatar">
+      <div class="brand-text">
+        <strong>IKUN 服务中心</strong>
+        <span class="brand-sub">v2.0 · 个人练习生</span>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <button id="btn-theme" class="icon-btn" title="切换深浅模式" aria-label="切换主题">🌙</button>
+      <a class="icon-btn" href="https://github.com/rockyanyan/IKUN-Web" target="_blank" rel="noopener" title="GitHub 开源地址">⭐</a>
+    </div>
+  </header>
+
+  <main class="stage">
+
+    <!-- ===== 首页 Hero ===== -->
+    <section id="view-home" class="view is-active" aria-label="首页">
+      <div class="hero">
+        <div class="hero-art">
+          <img src="assets/img/kunkun.png" alt="只因你太美" class="hero-img">
+          <div class="hero-ring"></div>
+        </div>
+        <h1 class="hero-title">全民制作人们<br>大家好</h1>
+        <p class="hero-quote" id="typewriter">练习时长两年半的个人练习生</p>
+        <div class="hero-tags">
+          <span class="tag">🎤 唱</span>
+          <span class="tag">🕺 跳</span>
+          <span class="tag">🎧 RAP</span>
+          <span class="tag">🏀 篮球</span>
+        </div>
+        <div class="hero-actions">
+          <button class="btn btn-primary" data-goto="music">🎵 打开播放器</button>
+          <button class="btn btn-ghost" data-goto="check">🔍 小黑子鉴定</button>
+        </div>
+      </div>
+
+      <!-- 练习时长 -->
+      <div class="card practice-card">
+        <div class="card-head">
+          <h2>⏱ 练习时长</h2>
+          <span class="muted" id="practice-goal">目标：两年半</span>
+        </div>
+        <p class="practice-time" id="practice-time">已练习 0 秒</p>
+        <div class="progress"><div class="progress-fill" id="practice-bar"></div></div>
+        <p class="muted small" id="practice-tip">页面停留即算练习时长，进度会保存在本地。</p>
+      </div>
+
+      <!-- 语录生成器 -->
+      <div class="card">
+        <div class="card-head">
+          <h2>📜 鸡语录生成器</h2>
+          <button class="btn btn-ghost btn-sm" id="btn-quote">来一句</button>
+        </div>
+        <p class="quote-box" id="quote-text">点一下，看看坤坤今天说什么。</p>
+      </div>
+    </section>
+
+    <!-- ===== 音乐播放器 ===== -->
+    <section id="view-music" class="view" aria-label="音乐播放器">
+      <div class="card player-card">
+        <div class="player-disc" id="player-disc">
+          <img src="assets/img/kunkun.png" alt="专辑封面" id="disc-img">
+        </div>
+        <h2 class="player-title" id="player-title">未在播放</h2>
+        <p class="muted" id="player-artist">IKUN 服务中心 · 曲库</p>
+
+        <div class="player-progress">
+          <span id="time-cur">0:00</span>
+          <input type="range" id="seek" value="0" min="0" max="100" step="0.1" aria-label="播放进度">
+          <span id="time-total">0:00</span>
+        </div>
+
+        <div class="player-controls">
+          <button class="icon-btn big" id="btn-prev" aria-label="上一首">⏮</button>
+          <button class="icon-btn play" id="btn-play" aria-label="播放/暂停">▶</button>
+          <button class="icon-btn big" id="btn-next" aria-label="下一首">⏭</button>
+        </div>
+
+        <div class="player-volume">
+          🔊 <input type="range" id="volume" min="0" max="100" value="70" aria-label="音量">
+        </div>
+
+        <ul class="playlist" id="playlist"></ul>
+        <p class="muted small">⚠️ 浏览器禁止未经交互自动播放音频，首次点击播放按钮即可。</p>
+      </div>
+    </section>
+
+    <!-- ===== 梗图墙 ===== -->
+    <section id="view-gallery" class="view" aria-label="梗图墙">
+      <div class="card">
+        <div class="card-head"><h2>🖼 梗图墙</h2><span class="muted">点击查看大图</span></div>
+        <div class="gallery" id="gallery"></div>
+      </div>
+    </section>
+
+    <!-- ===== 小黑子鉴定 ===== -->
+    <section id="view-check" class="view" aria-label="小黑子鉴定">
+      <div class="card">
+        <div class="card-head"><h2>🔍 小黑子鉴定所</h2></div>
+        <div id="quiz-box">
+          <p class="muted small" id="quiz-progress">第 1 / 5 题</p>
+          <h3 class="quiz-question" id="quiz-question">载入中…</h3>
+          <div class="quiz-options" id="quiz-options"></div>
+        </div>
+        <div id="quiz-result" class="quiz-result" hidden>
+          <div class="result-badge" id="result-badge">🐔</div>
+          <h3 id="result-title">鉴定结果</h3>
+          <p class="muted" id="result-desc"></p>
+          <button class="btn btn-primary" id="btn-retry">再测一次</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 关于 ===== -->
+    <section id="view-about" class="view" aria-label="关于">
+      <div class="card">
+        <div class="card-head"><h2>ℹ️ 关于本站</h2></div>
+        <ul class="about-list">
+          <li>🐤 音频与图片素材均来自网络，仅供娱乐。</li>
+          <li>🐔 未经原作者授权，请勿商用。</li>
+          <li>🐓 本站已在 GitHub 开源：<a href="https://github.com/rockyanyan/IKUN-Web" target="_blank" rel="noopener">rockyanyan/IKUN-Web</a></li>
+          <li>🏀 喜欢的话分享给身边的 ikun 吧！</li>
+          <li>⚖️ 本站为粉丝娱乐性质的梗文化作品，与任何真实人物及商业主体无关，如有冒犯请联系仓库所有者处理。</li>
+        </ul>
+        <p class="muted small">v2.0 · AI 重构版 —— 修复了原版路径错误、标签嵌套、死链与移动端适配问题，并新增播放器 / 鉴定所 / 语录机 / 梗图墙 / 深色模式。</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== 底部导航 ===== -->
+  <nav class="dock" aria-label="主导航">
+    <button class="dock-item is-active" data-goto="home"><span>🏠</span>首页</button>
+    <button class="dock-item" data-goto="music"><span>🎵</span>音乐</button>
+    <button class="dock-item" data-goto="gallery"><span>🖼</span>梗图</button>
+    <button class="dock-item" data-goto="check"><span>🔍</span>鉴定</button>
+    <button class="dock-item" data-goto="about"><span>ℹ️</span>关于</button>
+  </nav>
+
+  <!-- ===== 灯箱 ===== -->
+  <div class="lightbox" id="lightbox" hidden>
+    <button class="lightbox-close" id="lightbox-close" aria-label="关闭">✕</button>
+    <img src="" alt="梗图大图" id="lightbox-img">
+    <p class="muted" id="lightbox-caption"></p>
+  </div>
+
+  <audio id="player" preload="none"></audio>
+  <div id="particles" class="particles" aria-hidden="true"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
